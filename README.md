@@ -19,7 +19,7 @@ git checkout -b my-feature
 ```
 
 ### 3. Edit Documentation
-Markdown files are in the repository subdirectories - Follow the LACC folder as a example
+Markdown files are in the repository subdirectories - Follow the LACC folder as a example in docs subdirectories
 
 The navigation is defined in mkdocs.yml in root.
 
