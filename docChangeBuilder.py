@@ -5,7 +5,8 @@ from aiohttp import web
 import subprocess
 
 GITHUB_SECRET = os.getenv("GITHUB_WEBHOOK_SECRET")
-MKDOCS_BUILD_CMD = ["mkdocs", "build"]
+BUILD_DIR = "../build"
+MKDOCS_BUILD_CMD = ["mkdocs", "build", "-d", BUILD_DIR]
 
 async def handle_webhook(request):
     if request.method != "POST":
@@ -39,7 +40,7 @@ async def handle_webhook(request):
         return web.Response(status=500, text=f"Build failed: {e}")
 
 app = web.Application()
-app.router.add_post("/webhook", handle_webhook)
+app.router.add_post("/git-rebuild", handle_webhook)
 
 if __name__ == "__main__":
     web.run_app(app, host="0.0.0.0", port=8000)
