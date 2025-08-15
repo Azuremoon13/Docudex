@@ -32,6 +32,8 @@ async def handle_webhook(request):
         return web.Response(status=200, text="Not main branch")
 
     try:
+        subprocess.run(["git", "pull"], check=True, capture_output=True, text=True)
+
         subprocess.run(["./build_mkdocs.sh"], check=True)
         return web.Response(status=200, text="MkDocs rebuild triggered")
     except subprocess.CalledProcessError as e:
