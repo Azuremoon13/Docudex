@@ -3,7 +3,6 @@ import aiosqlite
 import aiohttp
 import asyncio
 import re
-import ast
 from dotenv import load_dotenv
 
 load_dotenv()
