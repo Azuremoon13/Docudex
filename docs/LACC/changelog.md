@@ -1,7 +1,7 @@
 ---
 title: Changelog
-description: Changelog for My ARK Mod
-keywords: ark mod changelog, ark mod updates
+description: Changelog for LACC
+keywords: LACC changelog, LACC updates
 ---
 
 # Changelog

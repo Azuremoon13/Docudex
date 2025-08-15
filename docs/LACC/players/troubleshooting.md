@@ -1,7 +1,7 @@
 ---
 title: Troubleshooting
-description: Troubleshooting common issues with My ARK Mod
-keywords: ark mod troubleshooting, ark mod help
+description: Troubleshooting common issues with LACC
+keywords: LACC troubleshooting, LACC help
 ---
 
 # Troubleshooting

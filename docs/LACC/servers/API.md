@@ -1,6 +1,6 @@
 ---
-title: Installation
-description: Installation guide for My ARK Mod
+title: API
+description: API Information for LACC
 keywords: LACC API, API setup
 ---
 
