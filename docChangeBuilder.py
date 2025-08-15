@@ -3,7 +3,9 @@ import hmac
 import hashlib
 from aiohttp import web
 import subprocess
+from dotenv import load_dotenv
 
+load_dotenv()
 GITHUB_SECRET = os.getenv("GITHUB_WEBHOOK_SECRET")
 
 async def handle_webhook(request):
