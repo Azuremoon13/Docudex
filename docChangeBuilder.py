@@ -34,7 +34,7 @@ async def handle_webhook(request):
         return web.Response(status=200, text="Not main branch")
 
     try:
-        subprocess.run(MKDOCS_BUILD_CMD, check=True)
+        subprocess.run(MKDOCS_BUILD_CMD, check=True, cwd=os.path.dirname(__file__))
         return web.Response(status=200, text="MkDocs rebuild triggered")
     except subprocess.CalledProcessError as e:
         return web.Response(status=500, text=f"Build failed: {e}")
