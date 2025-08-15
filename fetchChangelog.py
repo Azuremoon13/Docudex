@@ -97,6 +97,23 @@ class CurseForgeAPI:
 			data = await resp.json()
 			return data.get("data", "")
 
+async def run_mkdocs_build():
+	process = await asyncio.create_subprocess_exec(
+		"./build_mkdocs.sh",
+		stdout=asyncio.subprocess.PIPE,
+		stderr=asyncio.subprocess.PIPE
+	)
+
+	stdout, stderr = await process.communicate()
+
+	if process.returncode != 0:
+		raise RuntimeError(
+			f"failed with code {process.returncode}\n"
+			f"stdout: {stdout.decode()}\nstderr: {stderr.decode()}"
+		)
+	print(stdout.decode())
+	if stderr:
+		print(stderr.decode())
 
 async def process_mod(mod_id: int, db: ModDatabase, api: CurseForgeAPI, session: aiohttp.ClientSession):
 	await db.create_mod_table(mod_id)
@@ -105,10 +122,11 @@ async def process_mod(mod_id: int, db: ModDatabase, api: CurseForgeAPI, session:
 
 	if latest_file_id is None:
 		print(f"No files found for mod {mod_id}.")
-		return
+		return False
 
 	if stored_latest_id == latest_file_id:
 		print(f"Mod {mod_id}: Already up to date.")
+		return False
 
 	elif stored_latest_id is not None:
 		changelog = await api.fetch_changelog(mod_id, latest_file_id, session)
@@ -126,6 +144,7 @@ async def process_mod(mod_id: int, db: ModDatabase, api: CurseForgeAPI, session:
 			version = re.search(r"\b\d+(?=\.zip)", display_name)
 			version = version[0] if version else "Unknown"
 			await db.update_mod_changelog(mod_id, version, changelog)
+	return True
 		
 
 
@@ -143,7 +162,10 @@ async def main():
 			mod_ids = [int(line.strip()) for line in f if line.strip() and not line.startswith("#")]
 		if mod_ids:
 			tasks = [process_mod(mod_id, db, api, session) for mod_id in mod_ids]
-			await asyncio.gather(*tasks)
+			updated = await asyncio.gather(*tasks)
+
+			if any(updated):
+				run_mkdocs_build()
 		else:
 			print("No tracked mod IDs")
 
