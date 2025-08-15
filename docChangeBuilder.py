@@ -5,8 +5,6 @@ from aiohttp import web
 import subprocess
 
 GITHUB_SECRET = os.getenv("GITHUB_WEBHOOK_SECRET")
-BUILD_DIR = "../build"
-MKDOCS_BUILD_CMD = ["mkdocs", "build", "-d", BUILD_DIR]
 
 async def handle_webhook(request):
     if request.method != "POST":
@@ -34,7 +32,7 @@ async def handle_webhook(request):
         return web.Response(status=200, text="Not main branch")
 
     try:
-        subprocess.run(MKDOCS_BUILD_CMD, check=True, cwd=os.path.dirname(__file__))
+        subprocess.run(["./build_mkdocs.sh"], check=True)
         return web.Response(status=200, text="MkDocs rebuild triggered")
     except subprocess.CalledProcessError as e:
         return web.Response(status=500, text=f"Build failed: {e}")
