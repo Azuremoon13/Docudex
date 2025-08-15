@@ -1,0 +1,6 @@
+mkdocs-glightbox
+mkdocs-material
+mkdocs-macros-plugin
+aiohttp
+aiosqlite
+python-dotenv

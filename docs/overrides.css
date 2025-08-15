@@ -1,0 +1,44 @@
+.md-footer-meta__inner > * {
+	display: none !important;
+}
+
+.md-footer-meta__inner::after {
+	content: "© 2025 Azure. All rights reserved.";
+	display: block;
+	font-size: 0.6rem;
+	color: inherit !important;
+	margin: 0.2rem 0;
+}
+
+.md-typeset .md-button.btn-small {
+	padding: 0.2em 0.2em 0.2em 0.2em;
+	font-size: 0.75em;
+}
+
+.md-typeset .admonition.example > .admonition-title,
+.md-typeset details.example > summary {
+	box-shadow: 0 0 0 0.1rem #0b53b8;
+	background-color: var(--md-admonition-bg-color);
+	color: var(--md-admonition-fg-color);
+}
+
+.md-typeset details.example[open] {
+	border-color: #0a4da8 !important;
+	box-shadow: 0 0 0 0.1rem #0c58c2;
+}
+
+.md-typeset table tr > :first-child {
+	white-space: nowrap !important;
+	overflow: hidden !important;
+	text-overflow: ellipsis !important;
+	max-width: none !important;
+}
+
+/* Reduce padding in table cells */
+.md-typeset table tr > * {
+	padding: 8px 6px !important; /* top/bottom 4px, left/right 8px */
+}
+
+
+
+
